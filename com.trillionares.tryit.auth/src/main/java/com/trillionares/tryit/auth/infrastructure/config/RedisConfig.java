@@ -4,6 +4,8 @@ import com.trillionares.tryit.auth.presentation.dto.responseDto.UserResponseDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
@@ -20,5 +22,13 @@ public class RedisConfig {
     template.setKeySerializer(RedisSerializer.string());
     template.setValueSerializer(RedisSerializer.json());
     return template;
+  }
+
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory() {
+    JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+    jedisConnectionFactory.setHostName("localhost");
+    jedisConnectionFactory.setPort(16379);
+    return jedisConnectionFactory;
   }
 }

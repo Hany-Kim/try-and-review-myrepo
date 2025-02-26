@@ -19,10 +19,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_DNS_NAME}/eureka
-  instance:
-    hostname: ${NOTIFICATION_DNS_NAME}
-    nonSecurePort: 80
-    nonSecurePortEnabled: true
+#  instance:
+#    hostname: ${NOTIFICATION_DNS_NAME}
+#    nonSecurePort: 80
+#    nonSecurePortEnabled: true
 
 feign:
   client:

@@ -1,10 +1,10 @@
 package com.trillionares.tryit.image_manage.domain.service;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.util.IOUtils;
+//import com.amazonaws.services.s3.AmazonS3;
+//import com.amazonaws.services.s3.model.CannedAccessControlList;
+//import com.amazonaws.services.s3.model.ObjectMetadata;
+//import com.amazonaws.services.s3.model.PutObjectRequest;
+//import com.amazonaws.util.IOUtils;
 import com.trillionares.tryit.image_manage.domain.common.message.S3Message;
 import com.trillionares.tryit.image_manage.presentation.dto.ImageUrlDto;
 import com.trillionares.tryit.image_manage.presentation.exception.S3Exception;
@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,10 +29,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional(readOnly = true)
 public class S3ImageService {
 
-    private final AmazonS3 amazonS3;
+//    private final AmazonS3 amazonS3;
 
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucketName;
+//    @Value("${cloud.aws.s3.bucket}")
+//    private String bucketName;
 
     public ImageUrlDto upload(MultipartFile image) {
         //입력받은 이미지 파일이 빈 파일인지 검증
@@ -74,9 +75,9 @@ public class S3ImageService {
         InputStream is = image.getInputStream();
         byte[] bytes = IOUtils.toByteArray(is); //image를 byte[]로 변환
 
-        ObjectMetadata metadata = new ObjectMetadata(); //metadata 생성
-        metadata.setContentType("image/" + extention);
-        metadata.setContentLength(bytes.length);
+//        ObjectMetadata metadata = new ObjectMetadata(); //metadata 생성
+//        metadata.setContentType("image/" + extention);
+//        metadata.setContentLength(bytes.length);
 
         //S3에 요청할 때 사용할 byteInputStream 생성
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
@@ -84,11 +85,11 @@ public class S3ImageService {
         try{
             //S3로 putObject 할 때 사용할 요청 객체
             //생성자 : bucket 이름, 파일 명, byteInputStream, metadata
-            PutObjectRequest putObjectRequest =
-                    new PutObjectRequest(bucketName, s3FileName, byteArrayInputStream, metadata)
-                            .withCannedAcl(CannedAccessControlList.PublicRead);
-            //실제로 S3에 이미지 데이터를 넣는 부분이다.
-            amazonS3.putObject(putObjectRequest); // put image to S3
+//            PutObjectRequest putObjectRequest =
+//                    new PutObjectRequest(bucketName, s3FileName, byteArrayInputStream, metadata)
+//                            .withCannedAcl(CannedAccessControlList.PublicRead);
+//            //실제로 S3에 이미지 데이터를 넣는 부분이다.
+//            amazonS3.putObject(putObjectRequest); // put image to S3
         }catch (Exception e){
             throw new S3Exception(S3Message.PUT_OBJECT_EXCEPTION.getMessage());
         }finally {
@@ -96,6 +97,7 @@ public class S3ImageService {
             is.close();
         }
 
-        return amazonS3.getUrl(bucketName, s3FileName).toString();
+//        return amazonS3.getUrl(bucketName, s3FileName).toString();
+        return null;
     }
 }

@@ -8,14 +8,14 @@ spring:
     username: ${DB_PRODUCT_USERNAME}
     password: ${DB_PRODUCT_PASSWORD}
     driver-class-name: org.postgresql.Driver
+  redis:
+    host: ${PRODUCT_REDIS_HOST}
+    port: ${PRODUCT_REDIS_PORT}
+    username: ${REDIS_USERNAME}
+    password: ${REDIS_PASSWORD}
   data:
-    redis:
-      host: ${PRODUCT_REDIS_HOST}
-      port: ${PRODUCT_REDIS_PORT}
-      username: ${REDIS_USERNAME}
-      password: ${REDIS_PASSWORD}
     elasticsearch:
-      host: ${ELK_URL}
+      host: ${ELK_HOST}
       username: ${ELK_USERNAME}
       password: ${ELK_PASSWORD}
       repositories:
@@ -51,10 +51,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_DNS_NAME}/eureka
-  instance:
-    hostname: ${PRODUCT_DNS_NAME}
-    nonSecurePort: 80
-    nonSecurePortEnabled: true
+#  instance:
+#    hostname: ${PRODUCT_DNS_NAME}
+#    nonSecurePort: 80
+#    nonSecurePortEnabled: true
 
 openapi:
   service:
@@ -63,3 +63,8 @@ openapi:
 logging:
   level:
     org.springframework.cloud.openfeign: DEBUG
+
+redisson:
+  singleServerConfig:
+    address: "redis://localhost:16381"
+    password: "1111"  # 설정한 비밀번호 추가

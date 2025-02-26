@@ -11,8 +11,8 @@ eureka:
     fetch-registry: false
     service-url:
       defaultZone: http://localhost:19090/eureka/
-  instance:
-    hostname: localhost
+#  instance:
+#    hostname: localhost
 
 logging:
   level:

@@ -63,10 +63,10 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_DNS_NAME}/eureka
-  instance:
-    hostname: ${GATEWAY_DNS_NAME}
-    nonSecurePort: 80
-    nonSecurePortEnabled: true
+#  instance:
+#    hostname: ${GATEWAY_DNS_NAME}
+#    nonSecurePort: 80
+#    nonSecurePortEnabled: true
 
 service:
   jwt:
